@@ -23,21 +23,18 @@ public class Main {
 
     private List<int[]> randomIntArraysGenerator(int limit) {
 
-        Random random = new Random();
-
         Consumer<int[]> IntArrayProprietor = intArray -> {                                     // заполнитель случайными целыми числами для массивов
             for (int i = 0; i < intArray.length; i++) {
-                intArray[i] = random.nextInt();
+                intArray[i] =  new Random().nextInt();
             }
         };
 
         List<int[]> ranmdomIntArraysList = random.ints(0,
-                (Integer.MAX_VALUE) / (limit * 100000))                      // генерация случайных целых положительных чисел
+                (Integer.MAX_VALUE) / (limit * 100000))                                        // генерация случайных целых положительных чисел
                 .distinct()                                                                    // только уникальных
                 .limit(limit)                                                                  // ограничиваем их количество n
                 .mapToObj(int[]::new)                                                          // создаем n массивов уникальных размеров
                 .peek(IntArrayProprietor)                                                      // заполняем каждый массив случайными целыми числами
-                .peek(System.out::println)
                 .collect(Collectors.toList());                                                 // Собираем в список(для индексов)
 
         return ranmdomIntArraysList;
